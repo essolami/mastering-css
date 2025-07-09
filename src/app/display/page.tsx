@@ -302,6 +302,18 @@ const DisplayPage = () => {
       </header>
 
       <div className="container mx-auto px-6 py-8">
+        <div className="mb-8 bg-slate-800 rounded-2xl p-6 border border-slate-700/50">
+          <h2 className="text-xl font-bold text-white mb-4">
+            What is Display?
+          </h2>
+          <p className="text-slate-300 leading-relaxed">
+            The <code>display</code> property in CSS defines how an element
+            behaves in the document flow. It controls whether an element is
+            treated as a block, inline, flex container, grid, or hidden
+            altogether. Understanding the <code>display</code> property is
+            essential for constructing responsive and flexible web layouts.
+          </p>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Sidebar - Display Types */}
           <div className="lg:col-span-1">

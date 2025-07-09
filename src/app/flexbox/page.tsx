@@ -5,151 +5,108 @@ import {
   ArrowLeft,
   Eye,
   Code,
-  Layers,
-  Circle,
-  Target,
-  Crosshair,
-  Move,
+  Layout,
+  AlignCenterHorizontal,
+  AlignCenterVertical,
+  AlignJustify,
+  AlignRight,
+  AlignLeft,
   Copy,
   Check,
   RotateCcw,
 } from "lucide-react";
 import Link from "next/link";
 
-const PositionPage = () => {
-  type PositionType = "static" | "relative" | "absolute" | "fixed" | "sticky";
+const FlexboxPage = () => {
+  type FlexType = "row" | "row-reverse" | "column" | "column-reverse" | "wrap";
 
-  const [activePosition, setActivePosition] = useState<PositionType>("static");
+  const [activeFlex, setActiveFlex] = useState<FlexType>("row");
   const [copiedCode, setCopiedCode] = useState(false);
 
-  const positionTypes: {
-    value: PositionType;
+  const flexTypes: {
+    value: FlexType;
     name: string;
     description: string;
     icon: JSX.Element;
     color: string;
   }[] = [
     {
-      value: "static",
-      name: "Static",
-      description:
-        "Default positioning. Elements appear in the normal document flow.",
-      icon: <Layers className="w-5 h-5" />,
+      value: "row",
+      name: "Row",
+      description: "Items are placed horizontally, left to right.",
+      icon: <AlignLeft className="w-5 h-5" />,
       color: "bg-blue-500",
     },
     {
-      value: "relative",
-      name: "Relative",
-      description:
-        "Position relative to its normal position. Can be moved with top/left.",
-      icon: <Move className="w-5 h-5" />,
+      value: "row-reverse",
+      name: "Row Reverse",
+      description: "Items are placed horizontally, right to left.",
+      icon: <AlignRight className="w-5 h-5" />,
       color: "bg-green-500",
     },
     {
-      value: "absolute",
-      name: "Absolute",
-      description:
-        "Positioned relative to the nearest positioned ancestor (non-static).",
-      icon: <Target className="w-5 h-5" />,
+      value: "column",
+      name: "Column",
+      description: "Items are placed vertically, top to bottom.",
+      icon: <AlignCenterVertical className="w-5 h-5" />,
       color: "bg-purple-500",
     },
     {
-      value: "fixed",
-      name: "Fixed",
-      description:
-        "Position relative to the viewport. Doesn't move when scrolling.",
-      icon: <Crosshair className="w-5 h-5" />,
+      value: "column-reverse",
+      name: "Column Reverse",
+      description: "Items are placed vertically, bottom to top.",
+      icon: <AlignJustify className="w-5 h-5" />,
       color: "bg-red-500",
     },
     {
-      value: "sticky",
-      name: "Sticky",
-      description:
-        "Acts like relative until a threshold is met, then becomes fixed.",
-      icon: <Circle className="w-5 h-5" />,
+      value: "wrap",
+      name: "Wrap",
+      description: "Items wrap onto multiple lines if necessary.",
+      icon: <AlignCenterHorizontal className="w-5 h-5" />,
       color: "bg-yellow-500",
     },
   ];
 
-  const codeExamples: Record<PositionType, string> = {
-    static: `.static-element {\n  position: static;\n  background: #3b82f6;\n}`,
-    relative: `.relative-element {\n  position: relative;\n  top: 20px;\n  left: 10px;\n  background: #10b981;\n}`,
-    absolute: `.absolute-container {\n  position: relative;\n}\n\n.absolute-element {\n  position: absolute;\n  top: 20px;\n  left: 20px;\n  background: #8b5cf6;\n}`,
-    fixed: `.fixed-element {\n  position: fixed;\n  top: 80px;\n  right: 20px;\n  background: #ef4444;\n}`,
-    sticky: `.sticky-element {\n  position: sticky;\n  top: 0;\n  background: #facc15;\n}`,
+  const codeExamples: Record<FlexType, string> = {
+    row: `.container { display: flex; flex-direction: row; }`,
+    "row-reverse": `.container { display: flex; flex-direction: row-reverse; }`,
+    column: `.container { display: flex; flex-direction: column; }`,
+    "column-reverse": `.container { display: flex; flex-direction: column-reverse; }`,
+    wrap: `.container { display: flex; flex-wrap: wrap; }`,
+  };
+
+  const keyPoints: Record<FlexType, string[]> = {
+    row: [
+      "Default direction",
+      "Items arranged horizontally",
+      "Useful for horizontal navigation bars",
+    ],
+    "row-reverse": [
+      "Reverses horizontal order",
+      "Last item appears first",
+      "Common in right-to-left layouts",
+    ],
+    column: [
+      "Items stacked vertically",
+      "Great for vertical menus",
+      "Simplifies column layouts",
+    ],
+    "column-reverse": [
+      "Reverses vertical order",
+      "Last item appears at the top",
+      "Less common but useful for reverse stacks",
+    ],
+    wrap: [
+      "Allows flex items to wrap onto multiple lines",
+      "Prevents overflow",
+      "Ideal for responsive grids",
+    ],
   };
 
   const copyCode = () => {
-    navigator.clipboard.writeText(codeExamples[activePosition]);
+    navigator.clipboard.writeText(codeExamples[activeFlex]);
     setCopiedCode(true);
     setTimeout(() => setCopiedCode(false), 2000);
-  };
-
-  const renderExample = () => {
-    return (
-      <div className="relative h-64 overflow-auto bg-slate-900 rounded-xl p-6">
-        {activePosition === "static" && (
-          <div className="static bg-blue-500 text-white p-4 rounded">
-            Static positioned box
-          </div>
-        )}
-        {activePosition === "relative" && (
-          <div className="relative top-5 left-5 bg-green-500 text-white p-4 rounded">
-            Relative box moved
-          </div>
-        )}
-        {activePosition === "absolute" && (
-          <div className="relative bg-slate-700 h-48">
-            <div className="absolute top-5 left-5 bg-purple-500 text-white p-4 rounded">
-              Absolute box
-            </div>
-          </div>
-        )}
-        {activePosition === "fixed" && (
-          <div className="fixed top-20 right-5 bg-red-500 text-white p-4 rounded">
-            Fixed box (scroll to test)
-          </div>
-        )}
-        {activePosition === "sticky" && (
-          <div className="h-[600px]">
-            <div className="sticky top-0 bg-yellow-400 text-black p-4 rounded">
-              Sticky header (scroll down)
-            </div>
-            <div className="mt-4 text-white">
-              Scroll down to see sticky effect.
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  const keyPoints: Record<PositionType, string[]> = {
-    static: [
-      "Default behavior for all elements",
-      "Elements appear in normal document flow",
-      "Cannot be offset with top/left/right/bottom",
-    ],
-    relative: [
-      "Positioned relative to itself",
-      "Can be offset using top, left, right, bottom",
-      "Doesn't remove element from document flow",
-    ],
-    absolute: [
-      "Positioned relative to the nearest positioned ancestor",
-      "Removed from document flow",
-      "Can be precisely positioned with top/left/right/bottom",
-    ],
-    fixed: [
-      "Position relative to viewport",
-      "Remains in the same position during scroll",
-      "Removed from document flow",
-    ],
-    sticky: [
-      "Acts like relative until threshold is met",
-      "Then becomes fixed at a given position",
-      "Great for headers that stick while scrolling",
-    ],
   };
 
   return (
@@ -164,10 +121,8 @@ const PositionPage = () => {
                 </Link>
               </button>
               <div className="flex items-center gap-2">
-                <Move className="w-6 h-6 text-green-400" />
-                <h1 className="text-2xl font-bold text-white">
-                  CSS Position Property
-                </h1>
+                <Layout className="w-6 h-6 text-blue-400" />
+                <h1 className="text-2xl font-bold text-white">CSS Flexbox</h1>
               </div>
             </div>
             <div className="flex items-center gap-2 text-sm text-slate-400">
@@ -181,33 +136,33 @@ const PositionPage = () => {
       <div className="container mx-auto px-6 py-8">
         <div className="mb-8 bg-slate-800 rounded-2xl p-6 border border-slate-700/50">
           <h2 className="text-xl font-bold text-white mb-4">
-            What is Position?
+            What is Flexbox?
           </h2>
           <p className="text-slate-300 leading-relaxed">
-            The <code>position</code> property in CSS determines how an element
-            is positioned within the document. It allows you to place elements
-            relative to their normal position, their parent, the viewport, or
-            other reference points. Common values like <code>static</code>,{" "}
-            <code>relative</code>, <code>absolute</code>, and <code>fixed</code>{" "}
-            help create advanced layouts and interactive designs.
+            Flexbox is a one-dimensional layout method in CSS that allows you to
+            efficiently align, space, and distribute items within a container,
+            even when their size is unknown or dynamic. It simplifies the
+            process of creating flexible and responsive layouts, whether your
+            elements are laid out in rows or columns. Flexbox makes it easy to
+            control alignment, spacing, and item order with just a few
+            properties.
           </p>
         </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1">
             <div className="bg-slate-800 rounded-2xl p-6 border border-slate-700/50">
               <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                <Layers className="w-5 h-5 text-blue-400" />
-                Position Types
+                <Layout className="w-5 h-5 text-blue-400" />
+                Flexbox Directions
               </h2>
 
               <div className="space-y-3">
-                {positionTypes.map((type) => (
+                {flexTypes.map((type) => (
                   <button
                     key={type.value}
-                    onClick={() => setActivePosition(type.value)}
+                    onClick={() => setActiveFlex(type.value)}
                     className={`w-full p-4 rounded-xl border transition-all duration-300 text-left group ${
-                      activePosition === type.value
+                      activeFlex === type.value
                         ? "border-green-500 bg-green-500/10"
                         : "border-slate-700 hover:border-slate-600 hover:bg-slate-700/50"
                     }`}
@@ -237,10 +192,29 @@ const PositionPage = () => {
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
                   <Eye className="w-5 h-5 text-green-400" />
                   Visual Example:{" "}
-                  {positionTypes.find((t) => t.value === activePosition)?.name}
+                  {flexTypes.find((t) => t.value === activeFlex)?.name}
                 </h2>
               </div>
-              {renderExample()}
+
+              <div
+                className="relative h-40 bg-slate-900 rounded-xl p-4 flex overflow-hidden"
+                style={{
+                  display: "flex",
+                  flexDirection: activeFlex.includes("column")
+                    ? activeFlex
+                    : "row",
+                  flexWrap: activeFlex === "wrap" ? "wrap" : "nowrap",
+                }}
+              >
+                {["1", "2", "3", "4", "5", "6"].map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-center justify-center w-20 h-20 bg-blue-400 text-white rounded m-2"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="bg-slate-800 rounded-2xl p-6 border border-slate-700/50">
@@ -268,7 +242,7 @@ const PositionPage = () => {
               </div>
 
               <pre className="text-slate-300 font-mono text-sm overflow-x-auto bg-slate-900 rounded-xl p-6 border border-slate-700/30">
-                <code>{codeExamples[activePosition]}</code>
+                <code>{codeExamples[activeFlex]}</code>
               </pre>
             </div>
 
@@ -279,7 +253,7 @@ const PositionPage = () => {
               </h2>
 
               <ul className="space-y-3">
-                {keyPoints[activePosition].map((point, index) => (
+                {keyPoints[activeFlex].map((point, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-green-400 rounded-full mt-2"></div>
                     <p className="text-slate-300">{point}</p>
@@ -294,4 +268,4 @@ const PositionPage = () => {
   );
 };
 
-export default PositionPage;
+export default FlexboxPage;

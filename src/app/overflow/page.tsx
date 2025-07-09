@@ -6,149 +6,135 @@ import {
   Eye,
   Code,
   Layers,
-  Circle,
-  Target,
-  Crosshair,
-  Move,
+  Maximize2,
+  Minimize2,
+  ZoomOut,
+  Crop,
   Copy,
   Check,
   RotateCcw,
 } from "lucide-react";
 import Link from "next/link";
 
-const PositionPage = () => {
-  type PositionType = "static" | "relative" | "absolute" | "fixed" | "sticky";
+const OverflowPage = () => {
+  type OverflowType = "visible" | "hidden" | "scroll" | "auto" | "clip";
 
-  const [activePosition, setActivePosition] = useState<PositionType>("static");
+  const [activeOverflow, setActiveOverflow] = useState<OverflowType>("visible");
   const [copiedCode, setCopiedCode] = useState(false);
 
-  const positionTypes: {
-    value: PositionType;
+  const overflowTypes: {
+    value: OverflowType;
     name: string;
     description: string;
     icon: JSX.Element;
     color: string;
   }[] = [
     {
-      value: "static",
-      name: "Static",
+      value: "visible",
+      name: "Visible",
       description:
-        "Default positioning. Elements appear in the normal document flow.",
-      icon: <Layers className="w-5 h-5" />,
+        "Default behavior. Overflowing content is visible outside the container.",
+      icon: <Maximize2 className="w-5 h-5" />,
       color: "bg-blue-500",
     },
     {
-      value: "relative",
-      name: "Relative",
-      description:
-        "Position relative to its normal position. Can be moved with top/left.",
-      icon: <Move className="w-5 h-5" />,
+      value: "hidden",
+      name: "Hidden",
+      description: "Overflowing content is clipped and hidden from view.",
+      icon: <Minimize2 className="w-5 h-5" />,
       color: "bg-green-500",
     },
     {
-      value: "absolute",
-      name: "Absolute",
-      description:
-        "Positioned relative to the nearest positioned ancestor (non-static).",
-      icon: <Target className="w-5 h-5" />,
+      value: "scroll",
+      name: "Scroll",
+      description: "Always shows scrollbars to access overflowing content.",
+      icon: <ZoomOut className="w-5 h-5" />,
       color: "bg-purple-500",
     },
     {
-      value: "fixed",
-      name: "Fixed",
-      description:
-        "Position relative to the viewport. Doesn't move when scrolling.",
-      icon: <Crosshair className="w-5 h-5" />,
+      value: "auto",
+      name: "Auto",
+      description: "Scrollbars appear only when the content overflows.",
+      icon: <Crop className="w-5 h-5" />,
       color: "bg-red-500",
     },
     {
-      value: "sticky",
-      name: "Sticky",
-      description:
-        "Acts like relative until a threshold is met, then becomes fixed.",
-      icon: <Circle className="w-5 h-5" />,
+      value: "clip",
+      name: "Clip",
+      description: "Similar to hidden but does not support scrolling.",
+      icon: <Layers className="w-5 h-5" />,
       color: "bg-yellow-500",
     },
   ];
 
-  const codeExamples: Record<PositionType, string> = {
-    static: `.static-element {\n  position: static;\n  background: #3b82f6;\n}`,
-    relative: `.relative-element {\n  position: relative;\n  top: 20px;\n  left: 10px;\n  background: #10b981;\n}`,
-    absolute: `.absolute-container {\n  position: relative;\n}\n\n.absolute-element {\n  position: absolute;\n  top: 20px;\n  left: 20px;\n  background: #8b5cf6;\n}`,
-    fixed: `.fixed-element {\n  position: fixed;\n  top: 80px;\n  right: 20px;\n  background: #ef4444;\n}`,
-    sticky: `.sticky-element {\n  position: sticky;\n  top: 0;\n  background: #facc15;\n}`,
+  const codeExamples: Record<OverflowType, string> = {
+    visible: `.visible-container {
+  overflow: visible;
+  background: #3b82f6;
+}`,
+    hidden: `.hidden-container {
+  overflow: hidden;
+  background: #10b981;
+}`,
+    scroll: `.scroll-container {
+  overflow: scroll;
+  background: #8b5cf6;
+}`,
+    auto: `.auto-container {
+  overflow: auto;
+  background: #ef4444;
+}`,
+    clip: `.clip-container {
+  overflow: clip;
+  background: #facc15;
+}`,
   };
 
   const copyCode = () => {
-    navigator.clipboard.writeText(codeExamples[activePosition]);
+    navigator.clipboard.writeText(codeExamples[activeOverflow]);
     setCopiedCode(true);
     setTimeout(() => setCopiedCode(false), 2000);
   };
 
   const renderExample = () => {
     return (
-      <div className="relative h-64 overflow-auto bg-slate-900 rounded-xl p-6">
-        {activePosition === "static" && (
-          <div className="static bg-blue-500 text-white p-4 rounded">
-            Static positioned box
-          </div>
-        )}
-        {activePosition === "relative" && (
-          <div className="relative top-5 left-5 bg-green-500 text-white p-4 rounded">
-            Relative box moved
-          </div>
-        )}
-        {activePosition === "absolute" && (
-          <div className="relative bg-slate-700 h-48">
-            <div className="absolute top-5 left-5 bg-purple-500 text-white p-4 rounded">
-              Absolute box
-            </div>
-          </div>
-        )}
-        {activePosition === "fixed" && (
-          <div className="fixed top-20 right-5 bg-red-500 text-white p-4 rounded">
-            Fixed box (scroll to test)
-          </div>
-        )}
-        {activePosition === "sticky" && (
-          <div className="h-[600px]">
-            <div className="sticky top-0 bg-yellow-400 text-black p-4 rounded">
-              Sticky header (scroll down)
-            </div>
-            <div className="mt-4 text-white">
-              Scroll down to see sticky effect.
-            </div>
-          </div>
-        )}
+      <div className="relative h-40 overflow-hidden bg-slate-900 rounded-xl p-4">
+        <div
+          className={`h-32 w-96 bg-blue-400 text-white p-4 rounded ${activeOverflow}`}
+          style={{ overflow: activeOverflow }}
+        >
+          This is some long content that will overflow the container depending
+          on the overflow property applied. Scroll or hide me!
+        </div>
       </div>
     );
   };
 
-  const keyPoints: Record<PositionType, string[]> = {
-    static: [
-      "Default behavior for all elements",
-      "Elements appear in normal document flow",
-      "Cannot be offset with top/left/right/bottom",
+  const keyPoints: Record<OverflowType, string[]> = {
+    visible: [
+      "Default overflow behavior",
+      "Overflowing content is visible outside the container",
+      "No clipping or scrollbars",
     ],
-    relative: [
-      "Positioned relative to itself",
-      "Can be offset using top, left, right, bottom",
-      "Doesn't remove element from document flow",
+    hidden: [
+      "Overflowing content is hidden",
+      "No scrollbars appear",
+      "Content is clipped at the container edge",
     ],
-    absolute: [
-      "Positioned relative to the nearest positioned ancestor",
-      "Removed from document flow",
-      "Can be precisely positioned with top/left/right/bottom",
+    scroll: [
+      "Forces scrollbars to appear",
+      "Lets users scroll to see hidden content",
+      "Useful when you always want scrolling enabled",
     ],
-    fixed: [
-      "Position relative to viewport",
-      "Remains in the same position during scroll",
-      "Removed from document flow",
+    auto: [
+      "Adds scrollbars only if necessary",
+      "No scrollbars if content fits in the container",
+      "Most commonly used setting",
     ],
-    sticky: [
-      "Acts like relative until threshold is met",
-      "Then becomes fixed at a given position",
-      "Great for headers that stick while scrolling",
+    clip: [
+      "Similar to hidden",
+      "Clips content without adding scrollbars",
+      "Cannot scroll to access clipped content",
     ],
   };
 
@@ -164,9 +150,9 @@ const PositionPage = () => {
                 </Link>
               </button>
               <div className="flex items-center gap-2">
-                <Move className="w-6 h-6 text-green-400" />
+                <Layers className="w-6 h-6 text-blue-400" />
                 <h1 className="text-2xl font-bold text-white">
-                  CSS Position Property
+                  CSS Overflow Property
                 </h1>
               </div>
             </div>
@@ -181,15 +167,14 @@ const PositionPage = () => {
       <div className="container mx-auto px-6 py-8">
         <div className="mb-8 bg-slate-800 rounded-2xl p-6 border border-slate-700/50">
           <h2 className="text-xl font-bold text-white mb-4">
-            What is Position?
+            What is Overflow?
           </h2>
           <p className="text-slate-300 leading-relaxed">
-            The <code>position</code> property in CSS determines how an element
-            is positioned within the document. It allows you to place elements
-            relative to their normal position, their parent, the viewport, or
-            other reference points. Common values like <code>static</code>,{" "}
-            <code>relative</code>, <code>absolute</code>, and <code>fixed</code>{" "}
-            help create advanced layouts and interactive designs.
+            The <code>overflow</code> property in CSS controls what happens to
+            content that exceeds the boundaries of its container. You can choose
+            whether the overflowing content is visible, hidden, clipped, or
+            scrollable. This property is essential for managing layouts and
+            preventing unwanted content spillover.
           </p>
         </div>
 
@@ -198,16 +183,16 @@ const PositionPage = () => {
             <div className="bg-slate-800 rounded-2xl p-6 border border-slate-700/50">
               <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
                 <Layers className="w-5 h-5 text-blue-400" />
-                Position Types
+                Overflow Types
               </h2>
 
               <div className="space-y-3">
-                {positionTypes.map((type) => (
+                {overflowTypes.map((type) => (
                   <button
                     key={type.value}
-                    onClick={() => setActivePosition(type.value)}
+                    onClick={() => setActiveOverflow(type.value)}
                     className={`w-full p-4 rounded-xl border transition-all duration-300 text-left group ${
-                      activePosition === type.value
+                      activeOverflow === type.value
                         ? "border-green-500 bg-green-500/10"
                         : "border-slate-700 hover:border-slate-600 hover:bg-slate-700/50"
                     }`}
@@ -237,7 +222,7 @@ const PositionPage = () => {
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
                   <Eye className="w-5 h-5 text-green-400" />
                   Visual Example:{" "}
-                  {positionTypes.find((t) => t.value === activePosition)?.name}
+                  {overflowTypes.find((t) => t.value === activeOverflow)?.name}
                 </h2>
               </div>
               {renderExample()}
@@ -268,7 +253,7 @@ const PositionPage = () => {
               </div>
 
               <pre className="text-slate-300 font-mono text-sm overflow-x-auto bg-slate-900 rounded-xl p-6 border border-slate-700/30">
-                <code>{codeExamples[activePosition]}</code>
+                <code>{codeExamples[activeOverflow]}</code>
               </pre>
             </div>
 
@@ -279,7 +264,7 @@ const PositionPage = () => {
               </h2>
 
               <ul className="space-y-3">
-                {keyPoints[activePosition].map((point, index) => (
+                {keyPoints[activeOverflow].map((point, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-green-400 rounded-full mt-2"></div>
                     <p className="text-slate-300">{point}</p>
@@ -294,4 +279,4 @@ const PositionPage = () => {
   );
 };
 
-export default PositionPage;
+export default OverflowPage;
