@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import {
   ChevronRight,
   Code,
@@ -15,10 +13,9 @@ import {
   Maximize,
   Eye,
 } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-
   const cssTopics = [
     {
       id: "display",
@@ -94,15 +91,6 @@ export default function Home() {
     },
   ];
 
-  const handleCardClick = (topicId: string) => {
-    // In a real Next.js app, you would use Next.js router
-    // For demo purposes, we'll just show an alert
-    alert(`Navigate to /${topicId} page`);
-    // In Next.js, you would use:
-    // import { useRouter } from 'next/router';
-    // const router = useRouter();
-    // router.push(`/${topicId}`);
-  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Header */}
@@ -264,6 +252,50 @@ export default function Home() {
         </div>
       </header>
 
+      {/* Main Content */}
+      <main className="container mx-auto px-6 py-12" id="cssTopics">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {cssTopics.map((topic) => (
+            <div key={topic.id} className={`relative group cursor-pointer `}>
+              {/* Card */}
+              <div
+                className={`relative h-48 rounded-2xl ${topic.bgPattern} ${topic.color} p-6 shadow-xl  overflow-hidden`}
+              >
+                {/* Background Pattern */}
+                <div className="absolute inset-0 opacity-10">
+                  <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/20 to-transparent"></div>
+                  <div className="absolute -top-4 -right-4 w-24 h-24 bg-white/10 rounded-full"></div>
+                  <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-white/5 rounded-full"></div>
+                </div>
+
+                {/* Content */}
+                <Link href={`/${topic.id}`}>
+                  <div className="relative z-10 flex flex-col h-full">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="text-white/90 ">{topic.icon}</div>
+                      <ChevronRight className="w-5 h-5 text-white/60  " />
+                    </div>
+
+                    <h3 className="text-2xl font-bold text-white mb-2 ">
+                      {topic.title}
+                    </h3>
+
+                    <p className="text-white/80 text-sm leading-relaxed flex-grow">
+                      {topic.description}
+                    </p>
+
+                    {/* Hover Effect */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+                  </div>
+                </Link>
+
+                {/* Animated Border */}
+              </div>
+            </div>
+          ))}
+        </div>
+      </main>
+
       <section className="py-20 bg-gradient-to-b from-slate-900 to-slate-800">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -301,7 +333,7 @@ export default function Home() {
                   {/* Difficulty Level */}
                   <div className="pt-4">
                     <p className="text-sm text-slate-400 mb-2">DIFFICULTY</p>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 overflow-x-scroll">
                       {["Beginner", "Intermediate", "Advanced", "Expert"].map(
                         (level, index) => (
                           <button
@@ -431,82 +463,175 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-6 py-12" id="cssTopics">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {cssTopics.map((topic, index) => (
-            <div
-              key={topic.id}
-              className={`relative group cursor-pointer transform transition-all duration-300 hover:scale-105 ${
-                hoveredCard === topic.id ? "z-10" : ""
-              }`}
-              style={{
-                animationDelay: `${index * 100}ms`,
-              }}
-              onMouseEnter={() => setHoveredCard(topic.id)}
-              onMouseLeave={() => setHoveredCard(null)}
-              onClick={() => handleCardClick(topic.id)}
-            >
-              {/* Card */}
-              <div
-                className={`relative h-48 rounded-2xl ${topic.bgPattern} ${topic.color} p-6 shadow-xl transition-all duration-300 group-hover:shadow-2xl overflow-hidden`}
-              >
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-10">
-                  <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/20 to-transparent"></div>
-                  <div className="absolute -top-4 -right-4 w-24 h-24 bg-white/10 rounded-full"></div>
-                  <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-white/5 rounded-full"></div>
+      {/* Footer */}
+      <footer className="relative bg-gradient-to-b from-slate-800 to-slate-900 border-t border-slate-700/50">
+        {/* Background Effects */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 left-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute -top-40 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="relative container mx-auto px-6">
+          {/* Main Footer Content */}
+          <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            {/* Brand Section */}
+            <div className="lg:col-span-1">
+              <div className="flex items-center gap-2 mb-6">
+                <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-2 rounded-xl">
+                  <Code className="w-6 h-6 text-white" />
                 </div>
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                  Mastering CSS
+                </h3>
+              </div>
+              <p className="text-slate-400 mb-6 leading-relaxed">
+                Master the art of CSS with comprehensive tutorials, interactive
+                examples, and modern techniques.
+              </p>
 
-                {/* Content */}
-                <div className="relative z-10 flex flex-col h-full">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="text-white/90 transform transition-transform duration-300 group-hover:scale-110">
-                      {topic.icon}
-                    </div>
-                    <ChevronRight className="w-5 h-5 text-white/60 transform transition-transform duration-300 group-hover:translate-x-1" />
-                  </div>
+              {/* Social Links */}
+              <div className="flex gap-4">
+                {[
+                  { icon: "🐦", label: "Twitter", color: "hover:bg-blue-500" },
+                  { icon: "💼", label: "LinkedIn", color: "hover:bg-blue-600" },
+                  { icon: "🐙", label: "GitHub", color: "hover:bg-gray-600" },
+                  { icon: "📺", label: "YouTube", color: "hover:bg-red-500" },
+                ].map((social, index) => (
+                  <button
+                    key={index}
+                    className={`w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-lg transition-all duration-300 ${social.color} hover:scale-110 hover:shadow-lg`}
+                    aria-label={social.label}
+                  >
+                    {social.icon}
+                  </button>
+                ))}
+              </div>
+            </div>
 
-                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-white/90 transition-colors">
-                    {topic.title}
-                  </h3>
+            {/* Quick Links */}
+            <div>
+              <h4 className="text-white font-semibold mb-6 text-lg">
+                Quick Links
+              </h4>
+              <ul className="space-y-3">
+                {[
+                  "Getting Started",
+                  "CSS Basics",
+                  "Advanced Topics",
+                  "Best Practices",
+                  "Code Examples",
+                  "Cheat Sheet",
+                ].map((link, index) => (
+                  <li key={index}>
+                    <a
+                      href="#"
+                      className="text-slate-400 hover:text-blue-400 transition-colors duration-300 flex items-center gap-2 group"
+                    >
+                      <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-                  <p className="text-white/80 text-sm leading-relaxed flex-grow">
-                    {topic.description}
-                  </p>
+            {/* CSS Topics */}
+            <div>
+              <h4 className="text-white font-semibold mb-6 text-lg">
+                CSS Topics
+              </h4>
+              <ul className="space-y-3">
+                {[
+                  "Flexbox",
+                  "Grid Layout",
+                  "Animations",
+                  "Responsive Design",
+                  "Typography",
+                  "Color Theory",
+                ].map((topic, index) => (
+                  <li key={index}>
+                    <a
+                      href="#"
+                      className="text-slate-400 hover:text-purple-400 transition-colors duration-300 flex items-center gap-2 group"
+                    >
+                      <div className="w-2 h-2 bg-slate-600 rounded-full group-hover:bg-purple-400 transition-colors"></div>
+                      {topic}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-                  {/* Hover Effect */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+            {/* Newsletter */}
+            <div>
+              <h4 className="text-white font-semibold mb-6 text-lg">
+                Stay Updated
+              </h4>
+              <p className="text-slate-400 mb-4">
+                Get the latest CSS tips and tutorials delivered to your inbox.
+              </p>
+
+              <div className="space-y-3">
+                <div className="relative">
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  />
                 </div>
-
-                {/* Animated Border */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25">
+                  Subscribe
+                </button>
               </div>
 
-              {/* Floating Animation */}
-              <style jsx>{`
-                @keyframes float {
-                  0%,
-                  100% {
-                    transform: translateY(0px);
-                  }
-                  50% {
-                    transform: translateY(-10px);
-                  }
-                }
-                .group:hover {
-                  animation: float 2s ease-in-out infinite;
-                }
-              `}</style>
+              {/* Stats */}
+              <div className="mt-8 grid grid-cols-2 gap-4">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-blue-400">10K+</div>
+                  <div className="text-xs text-slate-500">Students</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-purple-400">50+</div>
+                  <div className="text-xs text-slate-500">Lessons</div>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
-      </main>
+          </div>
 
-      {/* Footer */}
-      <footer className="mt-20 py-8 border-t border-slate-700">
-        <div className="container mx-auto px-6 text-center text-slate-400">
-          <p>© 2025 Mastering CSS with Hamza Essolami.</p>
+          {/* Bottom Bar */}
+          <div className="border-t border-slate-700/50 py-8">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="text-slate-400 text-sm">
+                © 2024 Mastering CSS. All rights reserved. Built with 💙 for
+                developers.
+              </div>
+
+              <div className="flex items-center gap-6 text-sm">
+                <a
+                  href="#"
+                  className="text-slate-400 hover:text-white transition-colors"
+                >
+                  Privacy Policy
+                </a>
+                <a
+                  href="#"
+                  className="text-slate-400 hover:text-white transition-colors"
+                >
+                  Terms of Service
+                </a>
+                <a
+                  href="#"
+                  className="text-slate-400 hover:text-white transition-colors"
+                >
+                  Contact
+                </a>
+                <div className="flex items-center gap-2 text-slate-400">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  <span>All systems operational</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
