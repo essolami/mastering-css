@@ -1,6 +1,6 @@
 "use client";
 
-import React, { JSX, useState } from "react";
+import React, { useState } from "react";
 import {
   ArrowLeft,
   Eye,
@@ -12,6 +12,7 @@ import {
   Move,
   Copy,
   Check,
+  RotateCcw,
 } from "lucide-react";
 
 const PositionPage = () => {
@@ -70,37 +71,11 @@ const PositionPage = () => {
   ];
 
   const codeExamples: Record<PositionType, string> = {
-    static: `.static-element {
-  position: static;
-  background: #3b82f6;
-}`,
-    relative: `.relative-element {
-  position: relative;
-  top: 20px;
-  left: 10px;
-  background: #10b981;
-}`,
-    absolute: `.absolute-container {
-  position: relative;
-}
-
-.absolute-element {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background: #8b5cf6;
-}`,
-    fixed: `.fixed-element {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #ef4444;
-}`,
-    sticky: `.sticky-element {
-  position: sticky;
-  top: 0;
-  background: #facc15;
-}`,
+    static: `.static-element {\n  position: static;\n  background: #3b82f6;\n}`,
+    relative: `.relative-element {\n  position: relative;\n  top: 20px;\n  left: 10px;\n  background: #10b981;\n}`,
+    absolute: `.absolute-container {\n  position: relative;\n}\n\n.absolute-element {\n  position: absolute;\n  top: 20px;\n  left: 20px;\n  background: #8b5cf6;\n}`,
+    fixed: `.fixed-element {\n  position: fixed;\n  top: 20px;\n  right: 20px;\n  background: #ef4444;\n}`,
+    sticky: `.sticky-element {\n  position: sticky;\n  top: 0;\n  background: #facc15;\n}`,
   };
 
   const copyCode = () => {
@@ -146,6 +121,34 @@ const PositionPage = () => {
         )}
       </div>
     );
+  };
+
+  const keyPoints: Record<PositionType, string[]> = {
+    static: [
+      "Default behavior for all elements",
+      "Elements appear in normal document flow",
+      "Cannot be offset with top/left/right/bottom",
+    ],
+    relative: [
+      "Positioned relative to itself",
+      "Can be offset using top, left, right, bottom",
+      "Doesn't remove element from document flow",
+    ],
+    absolute: [
+      "Positioned relative to the nearest positioned ancestor",
+      "Removed from document flow",
+      "Can be precisely positioned with top/left/right/bottom",
+    ],
+    fixed: [
+      "Position relative to viewport",
+      "Remains in the same position during scroll",
+      "Removed from document flow",
+    ],
+    sticky: [
+      "Acts like relative until threshold is met",
+      "Then becomes fixed at a given position",
+      "Great for headers that stick while scrolling",
+    ],
   };
 
   return (
@@ -250,6 +253,22 @@ const PositionPage = () => {
               <pre className="text-slate-300 font-mono text-sm overflow-x-auto bg-slate-900 rounded-xl p-6 border border-slate-700/30">
                 <code>{codeExamples[activePosition]}</code>
               </pre>
+            </div>
+
+            <div className="bg-slate-800 rounded-2xl p-6 border border-slate-700/50">
+              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <RotateCcw className="w-5 h-5 text-yellow-400" />
+                Key Points
+              </h2>
+
+              <ul className="space-y-3">
+                {keyPoints[activePosition].map((point, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-green-400 rounded-full mt-2"></div>
+                    <p className="text-slate-300">{point}</p>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
