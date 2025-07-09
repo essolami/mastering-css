@@ -11,7 +11,6 @@ import {
   Zap,
   RotateCcw,
   Maximize,
-  Eye,
   Sparkles,
 } from "lucide-react";
 import Link from "next/link";
