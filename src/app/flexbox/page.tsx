@@ -19,6 +19,7 @@ import Link from "next/link";
 
 const FlexboxPage = () => {
   type FlexType = "row" | "row-reverse" | "column" | "column-reverse" | "wrap";
+  type FlexDirection = "row" | "column" | "row-reverse" | "column-reverse";
 
   const [activeFlex, setActiveFlex] = useState<FlexType>("row");
   const [copiedCode, setCopiedCode] = useState(false);
@@ -201,7 +202,7 @@ const FlexboxPage = () => {
                 style={{
                   display: "flex",
                   flexDirection: activeFlex.includes("column")
-                    ? activeFlex
+                    ? (activeFlex as FlexDirection)
                     : "row",
                   flexWrap: activeFlex === "wrap" ? "wrap" : "nowrap",
                 }}
