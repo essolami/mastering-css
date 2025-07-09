@@ -273,7 +273,7 @@ export default function Home() {
                   <div className="relative z-10 flex flex-col h-full">
                     <div className="flex items-center justify-between mb-4">
                       <div className="text-white/90 ">{topic.icon}</div>
-                      <ChevronRight className="w-5 h-5 text-white/60  " />
+                      <ChevronRight className="w-5 h-5 text-white/60 duration-300 " />
                     </div>
 
                     <h3 className="text-2xl font-bold text-white mb-2 ">
