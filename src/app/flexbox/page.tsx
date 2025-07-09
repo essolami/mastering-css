@@ -201,9 +201,7 @@ const FlexboxPage = () => {
                 className="relative h-40 bg-slate-900 rounded-xl p-4 flex overflow-hidden"
                 style={{
                   display: "flex",
-                  flexDirection: activeFlex.includes("column")
-                    ? (activeFlex as FlexDirection)
-                    : "row",
+                  flexDirection: activeFlex as FlexDirection,
                   flexWrap: activeFlex === "wrap" ? "wrap" : "nowrap",
                 }}
               >
