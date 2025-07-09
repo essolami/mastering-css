@@ -14,6 +14,7 @@ import {
   Check,
   RotateCcw,
 } from "lucide-react";
+import Link from "next/link";
 
 const PositionPage = () => {
   type PositionType = "static" | "relative" | "absolute" | "fixed" | "sticky";
@@ -158,7 +159,9 @@ const PositionPage = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button className="p-2 hover:bg-slate-800 rounded-lg transition-colors">
-                <ArrowLeft className="w-5 h-5 text-slate-400" />
+                <Link href="/">
+                  <ArrowLeft className="w-5 h-5 text-slate-400" />
+                </Link>
               </button>
               <div className="flex items-center gap-2">
                 <Move className="w-6 h-6 text-green-400" />
