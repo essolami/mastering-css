@@ -106,7 +106,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Header */}
-      <header className="relative overflow-hidden min-h-[70vh] flex items-center justify-center">
+      <header className="relative overflow-hidden min-h-[70vh] flex items-center justify-center pb-5">
         {/* Animated Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900/20 to-purple-900/20"></div>
 
@@ -263,6 +263,174 @@ export default function Home() {
           </div>
         </div>
       </header>
+
+      <section className="py-20 bg-gradient-to-b from-slate-900 to-slate-800">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Left Side - Product Card */}
+            <div className="relative">
+              <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-8 shadow-2xl border border-slate-700/50">
+                {/* Product Image */}
+                <div className="relative mb-6 overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 aspect-square">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600/30 to-purple-600/30"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-8xl font-bold text-white/20 select-none">
+                      CSS
+                    </div>
+                  </div>
+                  <div className="absolute bottom-4 right-4 bg-white/10 backdrop-blur-sm rounded-full p-3">
+                    <Code className="w-6 h-6 text-white" />
+                  </div>
+                </div>
+
+                {/* Product Info */}
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-bold text-white">
+                    CSS Mastery Course
+                  </h3>
+                  <p className="text-slate-400">Complete guide to modern CSS</p>
+                  <div className="text-3xl font-bold text-blue-400">Free</div>
+
+                  {/* Color Options */}
+                  <div className="flex gap-3 pt-2">
+                    <div className="w-8 h-8 rounded-full bg-blue-500 ring-2 ring-blue-400 ring-offset-2 ring-offset-slate-800"></div>
+                    <div className="w-8 h-8 rounded-full bg-purple-500 hover:ring-2 hover:ring-purple-400 hover:ring-offset-2 hover:ring-offset-slate-800 transition-all cursor-pointer"></div>
+                    <div className="w-8 h-8 rounded-full bg-green-500 hover:ring-2 hover:ring-green-400 hover:ring-offset-2 hover:ring-offset-slate-800 transition-all cursor-pointer"></div>
+                  </div>
+
+                  {/* Difficulty Level */}
+                  <div className="pt-4">
+                    <p className="text-sm text-slate-400 mb-2">DIFFICULTY</p>
+                    <div className="flex gap-2">
+                      {["Beginner", "Intermediate", "Advanced", "Expert"].map(
+                        (level, index) => (
+                          <button
+                            key={level}
+                            className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                              index === 0
+                                ? "bg-blue-500 text-white"
+                                : "bg-slate-700 text-slate-300 hover:bg-slate-600"
+                            }`}
+                          >
+                            {level}
+                          </button>
+                        )
+                      )}
+                    </div>
+                  </div>
+
+                  <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25">
+                    Start Learning
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side - Content */}
+            <div className="space-y-8 pt-4">
+              <div>
+                <p className="text-blue-400 text-sm font-semibold mb-2 tracking-wide">
+                  STYLE VARIANTS
+                </p>
+                <h2 className="text-5xl font-bold text-white mb-6">
+                  50+ CSS concepts out of the box.
+                </h2>
+                <p className="text-xl text-slate-300 leading-relaxed">
+                  The concepts are pre-organized and optimized, so you can
+                  master whatever you want right away.
+                </p>
+              </div>
+
+              {/* CSS Categories */}
+              <div className="grid grid-cols-5 gap-6">
+                {[
+                  { icon: "🎨", name: "Typography", color: "text-blue-400" },
+                  { icon: "📐", name: "Sizing", color: "text-green-400" },
+                  { icon: "📏", name: "Spacing", color: "text-purple-400" },
+                  { icon: "🔲", name: "Border", color: "text-yellow-400" },
+                  { icon: "🌈", name: "Background", color: "text-pink-400" },
+                ].map((category, index) => (
+                  <div key={index} className="text-center group cursor-pointer">
+                    <div className="w-16 h-16 mx-auto mb-3 bg-slate-800 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-slate-700 transition-all duration-300 group-hover:scale-110">
+                      {category.icon}
+                    </div>
+                    <p
+                      className={`text-sm font-medium ${category.color} group-hover:text-white transition-colors`}
+                    >
+                      {category.name}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Code Preview */}
+              <div className="bg-slate-900 rounded-2xl p-6 border border-slate-700/50 overflow-hidden">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <span className="text-slate-400 text-sm ml-2">
+                    styles.css
+                  </span>
+                </div>
+                <div className="font-mono text-sm leading-relaxed relative">
+                  <div className="text-slate-500">1</div>
+                  <div className="text-slate-500">2</div>
+                  <div className="text-slate-500">3</div>
+                  <div className="text-slate-500">4</div>
+                  <div className="text-slate-500">5</div>
+                  <div className="text-slate-500">6</div>
+                  <div className="text-slate-500">7</div>
+                  <div className="text-slate-500">8</div>
+
+                  <div className="absolute top-0 left-5 right-6 space-y-1">
+                    <div className="text-slate-300">
+                      <span className="text-blue-400">.hero-section</span>{" "}
+                      <span className="text-slate-500">{"{"}</span>
+                    </div>
+                    <div className="text-slate-300 ml-4">
+                      <span className="text-green-400">display</span>
+                      <span className="text-slate-500">:</span>{" "}
+                      <span className="text-orange-400">flex</span>
+                      <span className="text-slate-500">;</span>
+                    </div>
+                    <div className="text-slate-300 ml-4">
+                      <span className="text-green-400">justify-content</span>
+                      <span className="text-slate-500">:</span>{" "}
+                      <span className="text-orange-400">center</span>
+                      <span className="text-slate-500">;</span>
+                    </div>
+                    <div className="text-slate-300 ml-4">
+                      <span className="text-green-400">align-items</span>
+                      <span className="text-slate-500">:</span>{" "}
+                      <span className="text-orange-400">center</span>
+                      <span className="text-slate-500">;</span>
+                    </div>
+                    <div className="text-slate-300 ml-4">
+                      <span className="text-green-400">min-height</span>
+                      <span className="text-slate-500">:</span>{" "}
+                      <span className="text-orange-400">100vh</span>
+                      <span className="text-slate-500">;</span>
+                    </div>
+                    <div className="text-slate-300 ml-4">
+                      <span className="text-green-400">background</span>
+                      <span className="text-slate-500">:</span>{" "}
+                      <span className="text-orange-400">
+                        linear-gradient(45deg, #667eea, #764ba2)
+                      </span>
+                      <span className="text-slate-500">;</span>
+                    </div>
+                    <div className="text-slate-300">
+                      <span className="text-slate-500">{"}"}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Main Content */}
       <main className="container mx-auto px-6 py-12" id="cssTopics">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
