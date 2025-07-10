@@ -36,8 +36,8 @@ const ColorDemoPage = () => {
           </h2>
           <p className="text-slate-300 leading-relaxed">
             CSS Colors define the appearance of elements on a web page. You can
-            specify colors using named colors (e.g., "red"), hexadecimal codes
-            (e.g., "#ff0000"), RGB, HSL, and even CSS color functions like{" "}
+            specify colors using named colors (e.g., red), hexadecimal codes
+            (e.g., #ff0000), RGB, HSL, and even CSS color functions like{" "}
             <code>rgba()</code> for transparency. Colors enhance the design and
             user experience, guiding attention and creating mood.
           </p>
