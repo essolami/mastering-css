@@ -12,10 +12,142 @@ import {
   RotateCcw,
   Maximize,
   Sparkles,
+  MessageCircle,
+  Brain,
 } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
+  const brainstormingQuestion = [
+    {
+      category: "Architecture",
+      question:
+        "How do you approach scalable CSS architecture in large applications?",
+      answer: `
+        <p>
+          I start by creating simple and clear class names using methods like <strong>BEM</strong> or <strong>OOCSS</strong>. This makes the code easier to understand and maintain.<br/>
+          Then, I build styles for each component separately, like buttons, cards, or headers, so their styles don’t affect other parts of the app.<br/>
+          I use <strong>CSS Modules</strong> or <strong>CSS-in-JS</strong> to keep styles limited to the right components. I also create <strong>design tokens</strong> for things like colors, fonts, and spacing to keep everything consistent.<br/>
+          To help the team, I make a <strong>style guide</strong> and follow <strong>Atomic Design</strong> to break the UI into small reusable parts. <br/>
+          Finally, I clean up the CSS regularly and help other developers understand and follow the same approach.
+        </p>
+      `,
+      color: "from-emerald-500 to-teal-500",
+    },
+    {
+      category: "Performance",
+      question:
+        "What's your strategy for optimizing CSS performance in production?",
+      answer: `
+        <p>
+          I make sure to load only the CSS we need by using <strong>critical CSS extraction</strong> and removing unused styles with purging tools.<br/>
+          I optimize how styles load so they don’t block the page from showing, and I use browser caching to make the site load faster on repeat visits.<br/>
+          I also keep my selectors simple to improve performance and use <strong>lazy loading</strong> for styles that are not needed right away.<br/>
+          These steps help the website load faster and work smoothly for users.
+        </p>
+      `,
+      color: "from-blue-500 to-cyan-500",
+    },
+    {
+      category: "Problem Solving",
+      question: "How do you handle CSS conflicts in a multi-team environment?",
+      answer: `
+        <p>
+          I avoid CSS conflicts by using <strong>namespacing</strong> and keeping styles isolated with tools like <strong>CSS-in-JS</strong> or <strong>Shadow DOM</strong>.<br/>
+          I make sure each team knows which parts of the CSS they own and use tools like <strong>PostCSS</strong> to catch possible problems early.<br/>
+          Regular <strong>code reviews</strong> and <strong>style audits</strong> also help prevent conflicts and keep the code clean.
+        </p>
+      `,
+      color: "from-purple-500 to-pink-500",
+    },
+    {
+      category: "Modern CSS",
+      question: "When would you choose CSS Grid over Flexbox, and vice versa?",
+      answer: `
+        <p>
+          I use <strong>CSS Grid</strong> when I need to arrange items in both rows and columns for more complex layouts.<br/>
+          I prefer <strong>Flexbox</strong> when I’m aligning items in a single row or column, like in buttons, navbars, or small card layouts.<br/>
+          In most real-world projects, I combine both Grid and Flexbox to build flexible and easy-to-maintain layouts.
+        </p>
+      `,
+      color: "from-orange-500 to-red-500",
+    },
+    {
+      category: "Strategy",
+      question: "How do you evaluate and adopt new CSS features in production?",
+      answer: `
+        <p>
+          I first check browser support using <strong>caniuse.com</strong> to make sure the feature works on our users' browsers.<br/>
+          I use <strong>progressive enhancement</strong> to add new features in a way that doesn’t break the experience for older browsers.<br/>
+          I test new features across different browsers and sometimes use <strong>PostCSS plugins</strong> to add fallbacks.<br/>
+          I also consider how easy it is for the team to learn and maintain these new features over time.
+        </p>
+      `,
+      color: "from-indigo-500 to-blue-500",
+    },
+    {
+      category: "Accessibility",
+      question: "How do you ensure your CSS is accessible to all users?",
+      answer: `
+        <p>
+          I make sure to use <strong>semantic HTML</strong> first and let CSS style the page without breaking accessibility.<br/>
+          I avoid using color alone to show important information and make sure there is enough contrast between text and background.<br/>
+          I also test the site with <strong>screen readers</strong> and keyboard navigation, and I respect user settings like <strong>prefers-reduced-motion</strong> for people sensitive to animations.
+        </p>
+      `,
+      color: "from-lime-500 to-green-500",
+    },
+    {
+      category: "Maintainability",
+      question:
+        "What practices help you keep CSS maintainable in the long run?",
+      answer: `
+        <p>
+          I break styles into <strong>small, reusable components</strong> and use clear naming so it's easy to know what each style does.<br/>
+          I document design choices and keep removing unused styles to keep the codebase clean.<br/>
+          I also add automated tools like <strong>Stylelint</strong> to catch mistakes early and do regular <strong>code reviews</strong> to keep the CSS clear and easy to update.
+        </p>
+      `,
+      color: "from-yellow-500 to-amber-500",
+    },
+    {
+      category: "Tools",
+      question: "What tools do you use to streamline your CSS workflow?",
+      answer: `
+        <p>
+          I use tools like <strong>PostCSS</strong> and <strong>Autoprefixer</strong> to make the code work across different browsers.<br/>
+          I work with <strong>Tailwind CSS</strong> for fast styling or <strong>Sass</strong> when I need more structure.<br/>
+          I also use <strong>Vite</strong> or <strong>Webpack</strong> to bundle and optimize the CSS and <strong>Stylelint</strong> to keep the code clean.
+        </p>
+      `,
+      color: "from-fuchsia-500 to-rose-500",
+    },
+    {
+      category: "Collaboration",
+      question: "How do you manage consistent styles across multiple teams?",
+      answer: `
+        <p>
+          I create a <strong>shared design system</strong> and a <strong>component library</strong> so all teams use the same styles and components.<br/>
+          I document <strong>design tokens</strong> (like colors, spacing, and fonts) and write clear contribution guidelines.<br/>
+          Regular team meetings and automatic style checks during the CI/CD process help keep everything consistent and aligned.
+        </p>
+      `,
+      color: "from-cyan-500 to-sky-500",
+    },
+    {
+      category: "Responsive Design",
+      question: "What's your approach to building responsive layouts?",
+      answer: `
+        <p>
+          I follow a <strong>mobile-first</strong> approach, starting with small screens and scaling up for larger ones.<br/>
+          I use flexible units like <strong>%</strong>, <strong>rem</strong>, and <strong>vw</strong> to make sure layouts adapt to different screen sizes.<br/>
+          I apply <strong>media queries</strong> and use <strong>CSS Grid</strong> or <strong>Flexbox</strong> to adjust the layout. I always test on real devices to make sure everything looks and works as expected.
+        </p>
+      `,
+      color: "from-teal-500 to-green-400",
+    },
+  ];
+
   const cssTopics = [
     {
       id: "display",
@@ -225,6 +357,98 @@ export default function Home() {
           ))}
         </div>
       </main>
+
+      {/* Senior Developer Q&A Section */}
+      <section className="py-20 bg-gradient-to-b from-slate-800 to-slate-900 relative overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="relative container mx-auto px-6">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 rounded-full px-4 py-2 mb-6">
+              <Brain className="w-5 h-5 text-emerald-400" />
+              <span className="text-emerald-400 font-medium">
+                Senior Developer Insights
+              </span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Beyond the Basics
+            </h2>
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+              Real-world questions and insights from senior developers about CSS
+              architecture, performance optimization, and strategic
+              decision-making.
+            </p>
+          </div>
+
+          {/* Q&A Cards */}
+          <div className="max-w-4xl mx-auto space-y-6">
+            {brainstormingQuestion.map((item, index) => (
+              <div
+                key={index}
+                className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 overflow-hidden hover:border-slate-600/50 transition-all duration-300"
+              >
+                <div className="p-6">
+                  {/* Question Header */}
+                  <div className="flex items-start gap-4 mb-4">
+                    <div
+                      className={`bg-gradient-to-r ${item.color} p-2 rounded-lg flex-shrink-0`}
+                    >
+                      <MessageCircle className="w-5 h-5 text-white" />
+                    </div>
+                    <div className="flex-grow">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span
+                          className={`text-sm font-medium bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}
+                        >
+                          {item.category}
+                        </span>
+                        <div className="w-1 h-1 bg-slate-500 rounded-full"></div>
+                        <span className="text-slate-400 text-sm">
+                          Senior Level
+                        </span>
+                      </div>
+                      <h3 className="text-xl font-semibold text-white leading-tight">
+                        {item.question}
+                      </h3>
+                    </div>
+                  </div>
+
+                  {/* Answer */}
+                  <div className="ml-14">
+                    <div className="bg-slate-900/50 rounded-xl p-4 border-l-4 border-gradient-to-b from-slate-600 to-slate-700">
+                      <div
+                        className="text-slate-300 leading-relaxed"
+                        dangerouslySetInnerHTML={{ __html: item.answer }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Call to Action */}
+          <div className="text-center mt-16">
+            <div className="bg-gradient-to-r from-slate-800 to-slate-900 rounded-3xl p-8 border border-slate-700/50">
+              <h3 className="text-2xl font-bold text-white mb-4">
+                Ready to Level Up Your CSS Skills?
+              </h3>
+              <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
+                Join thousands of developers who,ve mastered advanced CSS
+                concepts and best practices.
+              </p>
+              <button className="bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/25">
+                Start Advanced Course
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="py-20 bg-gradient-to-b from-slate-900 to-slate-800">
         <div className="container mx-auto px-6">
