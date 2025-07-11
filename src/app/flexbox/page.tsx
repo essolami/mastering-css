@@ -141,12 +141,9 @@ const FlexboxPage = () => {
           </h2>
           <p className="text-slate-300 leading-relaxed">
             Flexbox is a one-dimensional layout method in CSS that allows you to
-            efficiently align, space, and distribute items within a container,
-            even when their size is unknown or dynamic. It simplifies the
-            process of creating flexible and responsive layouts, whether your
-            elements are laid out in rows or columns. Flexbox makes it easy to
-            control alignment, spacing, and item order with just a few
-            properties.
+            control the size, positioning, and spacing of your elements. <br />
+            It is especially useful for creating responsive designs, as it
+            easily adapts to different screen sizes.
           </p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

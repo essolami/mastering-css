@@ -37,19 +37,18 @@ const ResponsiveDesignPage = () => {
             What is Responsive Web Design?
           </h2>
           <p className="text-slate-300 leading-relaxed">
-            Responsive Web Design (RWD) is an approach to web development that
-            ensures your website looks and works well on devices of all
-            sizes—from large desktop monitors to small mobile phones. It uses
-            flexible grids, fluid images, and media queries to adapt the layout
-            and content according to the screen size, orientation, and
-            resolution.
-          </p>
-          <p className="text-slate-300 leading-relaxed mt-4">
-            With responsive design, you build a single website that
-            automatically adjusts its elements like navigation, text size,
-            images, and layout without needing separate versions for each
-            device. This leads to better usability, improved SEO, and a seamless
-            user experience across all platforms.
+            Responsive Web Design (RWD) is a way of building websites that makes
+            sure your site looks good and works well on all devices, from big
+            desktop screens to small mobile phones.
+            <br />
+            It uses flexible layouts, images that resize, and special rules
+            called media queries to change the website’s design based on the
+            screen size.
+            <br />
+            With responsive design, you only create one website, and it
+            automatically adjusts things like menus, text, and images to fit the
+            device. This makes the website easier to use, helps with search
+            engines (SEO), and gives a better experience for everyone.
           </p>
         </div>
 
