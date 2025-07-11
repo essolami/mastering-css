@@ -307,11 +307,30 @@ const DisplayPage = () => {
             What is Display?
           </h2>
           <p className="text-slate-300 leading-relaxed">
-            The <code>display</code> property in CSS defines how an element
-            behaves in the document flow. It controls whether an element is
-            treated as a block, inline, flex container, grid, or hidden
-            altogether. Understanding the <code>display</code> property is
-            essential for constructing responsive and flexible web layouts.
+            The <strong>display</strong> property in CSS defines how an element
+            is displayed in the document.
+            <br />
+            There are several display types:
+            <br />
+            <strong>block</strong>: element take all the width and always start
+            in a new line
+            <br />
+            <strong>inline</strong>: elements are placed horizontally, taking
+            only the space they need. You cannot set their width or height.
+            <br />
+            <strong>inline-block</strong>: similar to inline, but you can adjust
+            the element s width and height.
+            <br />
+            <strong>none</strong>: completely removes the element from the
+            document flow; it will not be visible and won’t take up space.
+            <br />
+            <strong>flex</strong>: allows you to arrange child elements in a
+            single dimension (horizontal or vertical). You can control their
+            size, position, and spacing.
+            <br />
+            <strong>grid</strong>: enables two-dimensional layouts, letting you
+            control both rows and columns to arrange elements horizontally and
+            vertically.
           </p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
